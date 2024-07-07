@@ -6,8 +6,7 @@ import { Document, Schema as MongooseSchema } from 'mongoose';
 export class Categories extends Document {
   @Prop({ required: true })
   name: string;
-  @Prop({ required: true })
-  description: string;
+ 
 }
 
 export const CategoriesModel = SchemaFactory.createForClass(Categories);
