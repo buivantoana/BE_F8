@@ -57,7 +57,18 @@ export class VouchersController {
     }
   }
   @Delete(':id')
-  
+  async deleteVouchers(
+    @Param('id', new ValidationPipe({ transform: true })) id: idVouchersDto,
+  ) {
+    try {
+      return await this.VouchersService.deleteVouchers(String(id));
+    } catch (error) {
+      return {
+        status: 1,
+        message: error,
+      };
+    }
+  }
   @Get('')
   async findAllVouchers() {
     try {
