@@ -39,23 +39,7 @@ export class VouchersController {
   
   }
   @Put(':id')
-  async updateVouchers(
-    @Param('id', new ValidationPipe({ transform: true })) id: idVouchersDto,
-    @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
-    vouchers: VouchersDto,
-  ) {
-    try {
-      return await this.VouchersService.updateVouchers(
-        String(id),
-        vouchers,
-      );
-    } catch (error) {
-      return {
-        status: 1,
-        message: error,
-      };
-    }
-  }
+  
   @Delete(':id')
   async deleteVouchers(
     @Param('id', new ValidationPipe({ transform: true })) id: idVouchersDto,
