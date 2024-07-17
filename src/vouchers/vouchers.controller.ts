@@ -70,7 +70,16 @@ export class VouchersController {
     }
   }
   @Get('')
-  
+  async findAllVouchers() {
+    try {
+      return await this.VouchersService.findAllVouchers();
+    } catch (error) {
+      return {
+        status: 1,
+        message: error,
+      };
+    }
+  }
  
   @Get(':id')
   async findOneVouchers(
