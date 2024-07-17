@@ -22,7 +22,7 @@ import { VouchersDto, idVouchersDto } from './dto/vouchers.dto';
 @Controller('vouchers')
 
 export class VouchersController {
-  constructor(private VouchersService: VouchersService) {}
+  
   @Post('')
  
   async createVouchers(
