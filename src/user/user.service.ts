@@ -415,12 +415,7 @@ export class UserService {
   async deleteUser(id: string) {
     try {
       let data = await this.userModel.findByIdAndDelete(id);
-      if (!data) {
-        return {
-          status: 1,
-          message: 'failed',
-        };
-      }
+
       return {
         status: 0,
         message: 'suceess',
