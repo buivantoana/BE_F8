@@ -80,5 +80,31 @@ export class VnPayService {
     }
     return sorted;
   }
- 
+  async vnpayReturn(req, res) {
+    let vnp_Params = req.query;
+    let secureHash = vnp_Params['vnp_SecureHash'];
+
+    delete vnp_Params['vnp_SecureHash'];
+    delete vnp_Params['vnp_SecureHashType'];
+
+    vnp_Params = this.sortObject(vnp_Params);
+
+    let secretKey = 'STCAXXDSGQFBOPWRZVYZLSFTVKBPOSON';
+    console.log(req.query);
+    let querystring = require('qs');
+    let signData = querystring.stringify(vnp_Params, { encode: false });
+    let crypto = require('crypto');
+    let hmac = crypto.createHmac('sha512', secretKey);
+    let signed = hmac.update(new Buffer(signData, 'utf-8')).digest('hex');
+    if (!secureHash === signed) {
+      // let data = await this.bookingModel.updateOne(
+      //   { order_id: vnp_Params['vnp_TxnRef'] },
+      //   { $set: { status: 'unpaid' } },
+      //   { new: true },
+      // );
+
+      res.status(200).json({ message: 'that bai' });
+    }
+    res.status(200).json({ message: 'thanh cong' });
+  }
 }
