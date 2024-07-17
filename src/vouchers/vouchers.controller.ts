@@ -82,5 +82,16 @@ export class VouchersController {
   }
  
   @Get(':id')
-  
+  async findOneVouchers(
+    @Param('id', new ValidationPipe({ transform: true })) id: idVouchersDto,
+  ) {
+    try {
+      return await this.VouchersService.findOneVouchers(String(id));
+    } catch (error) {
+      return {
+        status: 1,
+        message: error,
+      };
+    }
+  }
 }
