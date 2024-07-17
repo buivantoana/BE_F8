@@ -25,18 +25,7 @@ export class VouchersController {
   constructor(private VouchersService: VouchersService) {}
   @Post('')
  
-  async createVouchers(
-    @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
-    vouchers: VouchersDto,
-  ) {
-    try {
-      return await this.VouchersService.createVouchers(vouchers);
-    } catch (error) {
-      return {
-        status: 1,
-        message: error,
-      };
-    }
+  
   }
   @Put(':id')
   async updateVouchers(
