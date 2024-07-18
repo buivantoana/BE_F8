@@ -388,30 +388,7 @@ export class UserService {
       console.log(error);
     }
   }
-  async forgotPassword(value: any) {
-    try {
-      let data = await this.userModel.find({ email: value.email });
-      if (!data) {
-        return {
-          status: 1,
-          message: 'failed',
-        };
-      }
-      let password = await this.hashPassword(value.passwordNew);
-      let data_new = await this.userModel.findOneAndUpdate(
-        { _id: data[0]._id },
-        { $set: { password: password } },
-        { returnOriginal: false },
-      );
-      return {
-        status: 0,
-        message: 'suceess',
-        data: data_new,
-      };
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  
   async deleteUser(id: string) {
     try {
       let data = await this.userModel.findByIdAndDelete(id);
