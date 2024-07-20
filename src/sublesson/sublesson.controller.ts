@@ -70,16 +70,7 @@ export class SubLessonController {
     }
   }
   @Get('')
-  async findAllSubLessonn() {
-    try {
-      return await this.subLessonService.findAllSubLesson();
-    } catch (error) {
-      return {
-        status: 1,
-        message: error,
-      };
-    }
-  }
+  
   @Get(':id')
   async findOneSubLesson(
     @Param('id', new ValidationPipe({ transform: true })) id: idSubLessonDto,

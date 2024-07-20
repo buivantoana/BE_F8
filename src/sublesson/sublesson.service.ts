@@ -98,25 +98,7 @@ export class SubLessonService {
       console.log(error);
     }
   }
-  async findAllSubLesson() {
-    try {
-      let data = await this.sublessonModel.find({});
 
-      if (!data) {
-        return {
-          status: 1,
-          message: 'failed',
-        };
-      }
-      return {
-        status: 0,
-        message: 'suceess',
-        data,
-      };
-    } catch (error) {
-      console.log(error);
-    }
-  }
   async findOneSubLesson(id: string) {
     try {
       let data = await this.sublessonModel.findById(id);
