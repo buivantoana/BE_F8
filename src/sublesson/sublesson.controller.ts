@@ -26,7 +26,7 @@ export class SubLessonController {
   @Roles('create_courses')
   async createSubLesson(
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
-    lesson: any,
+    lesson,
   ) {
     try {
       return await this.subLessonService.createSubLesson(lesson);
@@ -58,7 +58,7 @@ export class SubLessonController {
   @Roles('delete_courses')
   async deleteSubLesson(
     @Param('id', new ValidationPipe({ transform: true })) id: idSubLessonDto,
-    @Param('idLesson') idLesson: string,
+    @Param('idLesson') idLesson,
   ) {
     try {
       return await this.subLessonService.deleteSubLesson(String(id),String(idLesson));
