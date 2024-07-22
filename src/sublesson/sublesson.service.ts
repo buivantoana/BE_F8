@@ -17,7 +17,12 @@ export class SubLessonService {
   async createSubLesson(sublesson: any) {
     try {
       let data = await this.sublessonModel.create(sublesson);
-     
+      if (!data) {
+        return {
+          status: 1,
+          message: 'failed',
+        };
+      }
       await this.lessonModel.updateOne(
         { _id: sublesson.lesson[0] },
         { $push: { sub_lesson: data._id } },
@@ -56,8 +61,12 @@ export class SubLessonService {
         );
       }
 
-    
-      
+      if (!data) {
+        return {
+          status: 1,
+          message: 'failed',
+        };
+      }
       return {
         status: 0,
         message: 'suceess',
@@ -73,7 +82,7 @@ export class SubLessonService {
       if (!data) {
         return {
           status: 1,
-          message: 'khong',
+          message: 'failed',
         };
       }
       await this.lessonModel.updateOne(
@@ -89,7 +98,25 @@ export class SubLessonService {
       console.log(error);
     }
   }
+  async findAllSubLesson() {
+    try {
+      let data = await this.sublessonModel.find({});
 
+      if (!data) {
+        return {
+          status: 1,
+          message: 'failed',
+        };
+      }
+      return {
+        status: 0,
+        message: 'suceess',
+        data,
+      };
+    } catch (error) {
+      console.log(error);
+    }
+  }
   async findOneSubLesson(id: string) {
     try {
       let data = await this.sublessonModel.findById(id);

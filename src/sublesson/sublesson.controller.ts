@@ -26,11 +26,10 @@ export class SubLessonController {
   @Roles('create_courses')
   async createSubLesson(
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
-    lesson,
+    lesson: any,
   ) {
     try {
       return await this.subLessonService.createSubLesson(lesson);
-      
     } catch (error) {
       return {
         status: 1,
@@ -58,10 +57,13 @@ export class SubLessonController {
   @Roles('delete_courses')
   async deleteSubLesson(
     @Param('id', new ValidationPipe({ transform: true })) id: idSubLessonDto,
-    @Param('idLesson') idLesson,
+    @Param('idLesson') idLesson: string,
   ) {
     try {
-      return await this.subLessonService.deleteSubLesson(String(id),String(idLesson));
+      return await this.subLessonService.deleteSubLesson(
+        String(id),
+        String(idLesson),
+      );
     } catch (error) {
       return {
         status: 1,
@@ -70,7 +72,16 @@ export class SubLessonController {
     }
   }
   @Get('')
-  
+  async findAllSubLessonn() {
+    try {
+      return await this.subLessonService.findAllSubLesson();
+    } catch (error) {
+      return {
+        status: 1,
+        message: error,
+      };
+    }
+  }
   @Get(':id')
   async findOneSubLesson(
     @Param('id', new ValidationPipe({ transform: true })) id: idSubLessonDto,
