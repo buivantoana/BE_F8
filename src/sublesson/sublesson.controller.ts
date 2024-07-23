@@ -30,7 +30,6 @@ export class SubLessonController {
   ) {
     try {
       return await this.subLessonService.createSubLesson(lesson);
-      
     } catch (error) {
       return {
         status: 1,
@@ -61,7 +60,10 @@ export class SubLessonController {
     @Param('idLesson') idLesson: string,
   ) {
     try {
-      return await this.subLessonService.deleteSubLesson(String(id),String(idLesson));
+      return await this.subLessonService.deleteSubLesson(
+        String(id),
+        String(idLesson),
+      );
     } catch (error) {
       return {
         status: 1,
