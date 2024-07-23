@@ -50,16 +50,7 @@ export class SubLessonService {
           new: true,
         });
       }
-      if (sublesson.changeLesson) {
-        await this.lessonModel.updateOne(
-          { _id: sublesson.body.lesson[0] },
-          { $push: { sub_lesson: id } },
-        );
-        await this.lessonModel.updateOne(
-          { _id: sublesson.lessonIdOld },
-          { $pull: { sub_lesson: id } },
-        );
-      }
+     
 
       if (!data) {
         return {
