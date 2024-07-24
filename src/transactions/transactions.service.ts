@@ -198,24 +198,7 @@ export class TransactionsService {
         };
       }
       console.log(data);
-      let rechanrge = 0;
-      let transfer = 0;
-      let withdraw = 0;
-      let purchase = 0;
-      let reward = 0;
-      data.map((item) => {
-        if (item.type == 'rechanrge') {
-          rechanrge += Number(item.amount);
-        } else if (item.type == 'transfer') {
-          transfer += Number(item.amount);
-        } else if (item.type == 'withdraw') {
-          withdraw += Number(item.amount);
-        } else if (item.type == 'purchase') {
-          purchase += Number(item.amount);
-        } else if (item.type == 'reward') {
-          reward += Number(item.amount);
-        }
-      });
+
       return {
         status: 0,
         message: 'suceess',
