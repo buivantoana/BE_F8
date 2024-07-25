@@ -46,18 +46,7 @@ export class TransactionsService {
           message: 'Không lấy được dữ liệu',
         };
       }
-      if (type == 'rechanrge') {
-        await this.notifyModel.create({
-          user_id: data.user_id,
-          title: 'Ví của bạn.',
-          message: `Bạn vừa nạp thành công ${convertToVND(
-            data.amount,
-          )} vào ví của mình.`,
-          url: '/my_wallet',
-          read: false,
-        });
-      } else if (type == 'withdraw') {
-      }
+      
       return {
         status: 0,
         message: 'suceess',
