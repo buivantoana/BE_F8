@@ -40,17 +40,11 @@ export class SubLessonService {
     try {
       let data: any;
       if (sublesson.change) {
-        await this.sublessonModel.findOneAndReplace(
-          { _id: id },
-          sublesson.body,
-          { returnOriginal: false, upsert: true },
-        );
       } else {
         data = await this.sublessonModel.findByIdAndUpdate(id, sublesson.body, {
           new: true,
         });
       }
-     
 
       if (!data) {
         return {
