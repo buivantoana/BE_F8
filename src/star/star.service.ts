@@ -48,24 +48,7 @@ export class StarService {
       console.log(error);
     }
   }
-  async deleteStar(id: string) {
-    try {
-      let data = await this.starModel.findByIdAndDelete(id);
-      if (!data) {
-        return {
-          status: 1,
-          message: 'Không lấy được dữ liệu',
-        };
-      }
-      return {
-        status: 0,
-        message: 'suceess',
-        data,
-      };
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  
 
   async findAllStar() {
     try {
