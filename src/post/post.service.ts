@@ -215,7 +215,29 @@ export class PostService {
       console.log(error);
     }
   }
-  
+  async fillOnePost(id: string) {
+    try {
+      let data = await this.postModel
+        .findById(id)
+        .populate(['author'])
+        .lean()
+        .exec();
+      console.log(data);
+      if (!data) {
+        return {
+          status: 1,
+          message: 'failed',
+        };
+      }
+      return {
+        status: 0,
+        message: 'suceess',
+        data,
+      };
+    } catch (error) {
+      console.log(error);
+    }
+  }
   async findPaginationPostActive(req: any) {
     try {
       const page = Number(req.query?.page);
