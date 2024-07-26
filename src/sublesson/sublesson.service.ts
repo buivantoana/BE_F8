@@ -70,10 +70,7 @@ export class SubLessonService {
           message: 'failed',
         };
       }
-      await this.lessonModel.updateOne(
-        { _id: idLesson },
-        { $pull: { sub_lesson: id } },
-      );
+     
       return {
         status: 0,
         message: 'suceess',

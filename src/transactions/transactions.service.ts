@@ -46,7 +46,7 @@ export class TransactionsService {
           message: 'Không lấy được dữ liệu',
         };
       }
-      
+
       return {
         status: 0,
         message: 'suceess',
@@ -60,7 +60,7 @@ export class TransactionsService {
     try {
       let data = await this.transactionsModel.findOneAndReplace(
         { _id: id },
-        transaction,
+
         { returnOriginal: false, upsert: true },
       );
       if (!data) {
