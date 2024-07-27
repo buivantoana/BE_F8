@@ -103,7 +103,19 @@ import {
         };
       }
     }
-   
+    @Delete(':id')
+  async deletePost(
+    @Param('id', new ValidationPipe({ transform: true })) id: idPostDto,
+  ) {
+    try {
+      return await this.postService.deletePost(String(id));
+    } catch (error) {
+      return {
+        status: 1,
+        message: error,
+      };
+    }
+  }
     @Get('')
     async fillAllPost() {
       try {
