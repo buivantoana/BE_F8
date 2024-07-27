@@ -40,25 +40,10 @@ export class SubLessonService {
     try {
       let data: any;
       if (sublesson.change) {
-        await this.sublessonModel.findOneAndReplace(
-          { _id: id },
-          sublesson.body,
-          { returnOriginal: false, upsert: true },
-        );
       } else {
         data = await this.sublessonModel.findByIdAndUpdate(id, sublesson.body, {
           new: true,
         });
-      }
-      if (sublesson.changeLesson) {
-        await this.lessonModel.updateOne(
-          { _id: sublesson.body.lesson[0] },
-          { $push: { sub_lesson: id } },
-        );
-        await this.lessonModel.updateOne(
-          { _id: sublesson.lessonIdOld },
-          { $pull: { sub_lesson: id } },
-        );
       }
 
       if (!data) {
@@ -85,10 +70,7 @@ export class SubLessonService {
           message: 'failed',
         };
       }
-      await this.lessonModel.updateOne(
-        { _id: idLesson },
-        { $pull: { sub_lesson: id } },
-      );
+     
       return {
         status: 0,
         message: 'suceess',
