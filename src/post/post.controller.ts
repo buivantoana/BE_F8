@@ -127,18 +127,6 @@ import {
         };
       }
     }
-    @Get(':id')
-    async fillOnePost(
-      @Param('id', new ValidationPipe({ transform: true })) id: idPostDto,
-    ) {
-      try {
-        return await this.postService.fillOnePost(String(id));
-      } catch (error) {
-        return {
-          status: 1,
-          message: error,
-        };
-      }
-    }
+   
   }
   
