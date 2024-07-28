@@ -46,7 +46,27 @@ export class TransactionsService {
           message: 'Không lấy được dữ liệu',
         };
       }
-
+      if (type == 'rechanrge') {
+        await this.notifyModel.create({
+          user_id: data.user_id,
+          title: 'Ví của bạn.',
+          message: `Bạn vừa nạp thành công ${convertToVND(
+            data.amount,
+          )} vào ví của mình.`,
+          url: '/my_wallet',
+          read: false,
+        });
+      } else if (type == 'withdraw') {
+        await this.notifyModel.create({
+          user_id: data.user_id,
+          title: 'Ví của bạn.',
+          message: `Bạn vừa rút thành công ${convertToVND(
+            data.amount,
+          )} từ ví ví của mình .`,
+          url: '/my_wallet',
+          read: false,
+        });
+      }
       return {
         status: 0,
         message: 'suceess',
@@ -60,7 +80,7 @@ export class TransactionsService {
     try {
       let data = await this.transactionsModel.findOneAndReplace(
         { _id: id },
-
+        transaction,
         { returnOriginal: false, upsert: true },
       );
       if (!data) {
@@ -69,7 +89,15 @@ export class TransactionsService {
           message: 'Không lấy được dữ liệu',
         };
       }
-
+      await this.notifyModel.create({
+        user_id: data.user_id,
+        title: 'Ví của bạn.',
+        message: `Bạn vừa rút thất bại ${convertToVND(
+          data.amount,
+        )} từ ví ví của mình.Ghi chú : ${data.note}`,
+        url: '/my_wallet',
+        read: false,
+      });
       return {
         status: 0,
         message: 'suceess',
@@ -170,7 +198,24 @@ export class TransactionsService {
         };
       }
       console.log(data);
-
+      let rechanrge = 0;
+      let transfer = 0;
+      let withdraw = 0;
+      let purchase = 0;
+      let reward = 0;
+      data.map((item) => {
+        if (item.type == 'rechanrge') {
+          rechanrge += Number(item.amount);
+        } else if (item.type == 'transfer') {
+          transfer += Number(item.amount);
+        } else if (item.type == 'withdraw') {
+          withdraw += Number(item.amount);
+        } else if (item.type == 'purchase') {
+          purchase += Number(item.amount);
+        } else if (item.type == 'reward') {
+          reward += Number(item.amount);
+        }
+      });
       return {
         status: 0,
         message: 'suceess',
@@ -184,11 +229,12 @@ export class TransactionsService {
       console.log(error);
     }
   }
-  async findStatisticalTransactionAdmin() {
+  async findStatisticalTransactionAdmin(date: any) {
     try {
+      date = Number(date);
       const today: any = new Date();
       const sevenDaysAgo = new Date(today);
-      sevenDaysAgo.setDate(today.getDate() - 6);
+      sevenDaysAgo.setDate(today.getDate() - (date - 1));
       sevenDaysAgo.setHours(0, 0, 0, 0);
 
       let dataRechanrge = await this.transactionsModel.find({
@@ -207,8 +253,8 @@ export class TransactionsService {
           message: 'Không lấy được dữ liệu',
         };
       }
-      const rechanrgeTotals = Array(7).fill(0);
-      const withdrawTotals = Array(7).fill(0);
+      const rechanrgeTotals = Array(date).fill(0);
+      const withdrawTotals = Array(date).fill(0);
       console.log(dataRechanrge);
       console.log(dataWithdraw);
 
@@ -220,8 +266,8 @@ export class TransactionsService {
           (today - transactionDate) / (1000 * 60 * 60 * 24),
         );
 
-        if (daysDifference < 7) {
-          const index = 6 - daysDifference;
+        if (daysDifference < date) {
+          const index = date - 1 - daysDifference;
           rechanrgeTotals[index] += parseFloat(transaction.amount);
         }
       });
@@ -234,8 +280,8 @@ export class TransactionsService {
           (today - transactionDate) / (1000 * 60 * 60 * 24),
         );
 
-        if (daysDifference < 7) {
-          const index = 6 - daysDifference;
+        if (daysDifference < date) {
+          const index = date - 1 - daysDifference;
           withdrawTotals[index] += parseFloat(transaction.amount);
         }
       });
