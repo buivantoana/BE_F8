@@ -27,5 +27,24 @@ export class PermissionService {
       console.log(error);
     }
   }
-  
+async updatePermission(id: string, per: IPermission) {
+    try {
+      let data = await this.perModel.findByIdAndUpdate(id, per, {
+        new: true,
+      });
+      if (!data) {
+        return {
+          status: 1,
+          message: 'failed',
+        };
+      }
+      return {
+        status: 0,
+        message: 'suceess',
+        data,
+      };
+    } catch (error) {
+      console.log(error);
+    }
+  }  
 }
