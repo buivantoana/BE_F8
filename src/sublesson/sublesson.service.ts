@@ -23,10 +23,7 @@ export class SubLessonService {
           message: 'failed',
         };
       }
-      await this.lessonModel.updateOne(
-        { _id: sublesson.lesson[0] },
-        { $push: { sub_lesson: data._id } },
-      );
+      
       return {
         status: 0,
         message: 'suceess',
@@ -40,11 +37,7 @@ export class SubLessonService {
     try {
       let data: any;
       if (sublesson.change) {
-      } else {
-        data = await this.sublessonModel.findByIdAndUpdate(id, sublesson.body, {
-          new: true,
-        });
-      }
+      } 
 
       if (!data) {
         return {
