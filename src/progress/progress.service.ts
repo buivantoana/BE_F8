@@ -37,7 +37,35 @@ export class ProgressService {
       console.log(error);
     }
   }
+  async findOneProgress(id: string, courses_id: string) {
+    try {
+      let arr = [];
+      let data = await this.progressModel.find({
+        user_id: [id],
+      });
 
+      data.map((item: any) => {
+        if (item.courses_id[0] == courses_id) {
+          return arr.push(item);
+        }
+      });
+      console.log(arr);
+      if (!data) {
+        return {
+          status: 1,
+          message: 'failed',
+        };
+      }
+
+      return {
+        status: 0,
+        message: 'suceess',
+        data: arr,
+      };
+    } catch (error) {
+      console.log(error);
+    }
+  }
   async findUserProgress(id: string) {
     try {
       let data = await this.progressModel.find({
