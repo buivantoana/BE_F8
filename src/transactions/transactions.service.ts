@@ -56,17 +56,7 @@ export class TransactionsService {
           url: '/my_wallet',
           read: false,
         });
-      } else if (type == 'withdraw') {
-        await this.notifyModel.create({
-          user_id: data.user_id,
-          title: 'Ví của bạn.',
-          message: `Bạn vừa rút thành công ${convertToVND(
-            data.amount,
-          )} từ ví ví của mình .`,
-          url: '/my_wallet',
-          read: false,
-        });
-      }
+      } 
       return {
         status: 0,
         message: 'suceess',
@@ -255,9 +245,7 @@ export class TransactionsService {
       }
       const rechanrgeTotals = Array(date).fill(0);
       const withdrawTotals = Array(date).fill(0);
-      console.log(dataRechanrge);
-      console.log(dataWithdraw);
-
+   
       dataRechanrge.forEach((transaction: any) => {
         const transactionDate: any = new Date(
           transaction.createdAt.toDateString(),
