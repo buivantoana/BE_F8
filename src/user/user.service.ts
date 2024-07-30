@@ -374,7 +374,11 @@ export class UserService {
         };
       }
       let password = await this.hashPassword(value.password_new);
-    
+      let data_new = await this.userModel.findOneAndUpdate(
+        { _id: data[0]._id },
+        { $set: { password: password } },
+        { returnOriginal: false },
+      );
       return {
         status: 0,
         message: 'suceess',
@@ -394,7 +398,11 @@ export class UserService {
         };
       }
       let password = await this.hashPassword(value.passwordNew);
-     
+      let data_new = await this.userModel.findOneAndUpdate(
+        { _id: data[0]._id },
+        { $set: { password: password } },
+        { returnOriginal: false },
+      );
       return {
         status: 0,
         message: 'suceess',
