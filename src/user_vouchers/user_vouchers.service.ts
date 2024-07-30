@@ -32,15 +32,7 @@ export class UserVouchersService {
             vouchers_id: [Uservouchers.body.vouchers_id],
           });
 
-          if (!existingUserVoucher) {
-            const userVoucher = new this.UserVouchersModel({
-              user_id: [userId],
-              vouchers_id: [Uservouchers.body.vouchers_id],
-              status: false,
-            });
-           
-            operations.push(userVoucher.save());
-          }
+        
         }
         await Promise.all(operations);
         return {
@@ -153,14 +145,7 @@ export class UserVouchersService {
           message: 'Không lấy được dữ liệu',
         };
       }
-      const filteredData = data.filter((userVoucher: any) => {
-        return userVoucher.vouchers_id.some((voucher: any) => {
-          const startDate = new Date(voucher.start_date);
-          const endDate = new Date(voucher.end_date);
-          endDate.setHours(23, 59, 59, 999);
-          return startDate <= now && endDate >= now;
-        });
-      });
+      
       return {
         status: 0,
         message: 'success',
