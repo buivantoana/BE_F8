@@ -32,7 +32,27 @@ export class UserVouchersService {
             vouchers_id: [Uservouchers.body.vouchers_id],
           });
 
-        
+          if (!existingUserVoucher) {
+            const userVoucher = new this.UserVouchersModel({
+              user_id: [userId],
+              vouchers_id: [Uservouchers.body.vouchers_id],
+              status: false,
+            });
+            await this.notifyModel.create({
+              user_id: userId,
+              title: `Tặng Vouchers`,
+              message: `Bạn nhận được Vouchers ${
+                voucher.code
+              } bạn sẽ được giảm giá ${
+                voucher.discount_type === 'percentage'
+                  ? `${voucher.discount_value}%`
+                  : convertToVND(voucher.discount_value)
+              } khi mua các khóa học.`,
+              url: ' ',
+              read: false,
+            });
+            operations.push(userVoucher.save());
+          }
         }
         await Promise.all(operations);
         return {
@@ -50,7 +70,19 @@ export class UserVouchersService {
         let vouches = await this.vouchersModel.findById(
           Uservouchers.body.vouchers_id[0],
         );
-       
+        await this.notifyModel.create({
+          user_id: [data.user_id[0]],
+          title: `Tặng Vouchers`,
+          message: `Bạn nhận được Vouchers ${
+            vouches.code
+          } bạn sẽ được giảm giá ${
+            vouches.discount_type == 'percentage'
+              ? `${vouches.discount_value}%`
+              : convertToVND(vouches.discount_value)
+          } khi mua các khóa học.`,
+          url: ' ',
+          read: false,
+        });
         return {
           status: 0,
           message: 'suceess',
@@ -145,7 +177,14 @@ export class UserVouchersService {
           message: 'Không lấy được dữ liệu',
         };
       }
-      
+      const filteredData = data.filter((userVoucher: any) => {
+        return userVoucher.vouchers_id.some((voucher: any) => {
+          const startDate = new Date(voucher.start_date);
+          const endDate = new Date(voucher.end_date);
+          endDate.setHours(23, 59, 59, 999);
+          return startDate <= now && endDate >= now;
+        });
+      });
       return {
         status: 0,
         message: 'success',
