@@ -86,10 +86,9 @@ async updatePermission(id: string, per: IPermission) {
   }
 
 
-    async fillAllPermission() {
+    async fillOnePermission(id: string) {
     try {
-      let data = await this.perModel.find();
-
+      let data = await this.perModel.findById(id);
       if (!data) {
         return {
           status: 1,
