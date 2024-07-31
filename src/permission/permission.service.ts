@@ -65,4 +65,44 @@ async updatePermission(id: string, per: IPermission) {
       console.log(error);
     }
   }
+    async fillAllPermission() {
+    try {
+      let data = await this.perModel.find();
+
+      if (!data) {
+        return {
+          status: 1,
+          message: 'failed',
+        };
+      }
+      return {
+        status: 0,
+        message: 'suceess',
+        data,
+      };
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+    async fillAllPermission() {
+    try {
+      let data = await this.perModel.find();
+
+      if (!data) {
+        return {
+          status: 1,
+          message: 'failed',
+        };
+      }
+      return {
+        status: 0,
+        message: 'suceess',
+        data,
+      };
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
