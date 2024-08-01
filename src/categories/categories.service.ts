@@ -10,24 +10,7 @@ export class CategoriesService {
     @InjectModel(Categories.name)
     private readonly categoriesModel: Model<Categories>,
   ) {}
-  async createCategories(category: ICategories) {
-    try {
-      let data = await this.categoriesModel.create(category);
-      if (!data) {
-        return {
-          status: 1,
-          message: 'Không lấy được dữ liệu',
-        };
-      }
-      return {
-        status: 0,
-        message: 'suceess',
-        data,
-      };
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  
   async updateCategories(id: string, category: ICategories) {
     try {
       let data = await this.categoriesModel.findByIdAndUpdate(id, category, {
