@@ -56,7 +56,32 @@ export class UserService {
             status: 1,
             message: 'Email đã tồn tại',
           };
+        } else {
+          let data = await this.userModel.find({
+            email: user.email,
+            uid: user.uid,
+          });
+          let token = await this.createToken({
+            email: data[0].email,
+            role: data[0].role,
+            _id: data[0]._id,
+          });
+          let refeshToken = await sign(
+            {
+              email: data[0].email,
+              role: data[0].role,
+              _id: data[0]._id,
+            },
+            this.secretKey,
+          );
+          return {
+            status: 0,
+            token,
+            refeshToken,
+            data,
+          };
         }
+      }
       if (user.type == 'email') {
         let password = this.generateRandomPassword(6);
         let mail = await this.mailService.sendMail(
@@ -164,12 +189,7 @@ export class UserService {
     try {
       let data = await this.userModel.find({ email: user.email });
 
-      if (!data[0]) {
-        return {
-          status: 1,
-          message: 'Email không tồn tại',
-        };
-      }
+     
       let password = await bcrypt.compare(user.password, data[0].password);
 
       if (!password) {
@@ -275,12 +295,7 @@ export class UserService {
   async otpEmail(email: any) {
     try {
       let data = await this.userModel.find({ email: email });
-      if (!data[0]) {
-        return {
-          status: 1,
-          message: 'Email không tồn tại',
-        };
-      }
+      
       let password = this.generateRandomPassword(6);
       let mail = await this.mailService.sendMail(
         email,
@@ -342,12 +357,7 @@ export class UserService {
         value.password,
         data[0].password,
       );
-      if (!check_password) {
-        return {
-          status: 1,
-          message: 'Mật khẩu cũ bạn nhập sai.',
-        };
-      }
+    
       let password = await this.hashPassword(value.password_new);
       let data_new = await this.userModel.findOneAndUpdate(
         { _id: data[0]._id },

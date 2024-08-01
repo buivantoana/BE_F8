@@ -122,7 +122,7 @@ export class TransactionsController {
   @Get('statistical/:user_id')
   async findStatisticalTransaction(
     @Param('user_id', new ValidationPipe({ transform: true }))
-   
+    user_id: idTransactionsDto,
   ) {
     try {
       return await this.transactionsService.findStatisticalTransaction(user_id);
@@ -133,10 +133,14 @@ export class TransactionsController {
       };
     }
   }
-  @Get('statistical/admin/line')
-  async findStatisticalTransactionAdmin() {
+  @Get('statistical/admin/line/:date')
+  async findStatisticalTransactionAdmin(
+    @Param('date', new ValidationPipe({ transform: true })) date: any,
+  ) {
     try {
-      return await this.transactionsService.findStatisticalTransactionAdmin();
+      return await this.transactionsService.findStatisticalTransactionAdmin(
+        date,
+      );
     } catch (error) {
       return {
         status: 1,
