@@ -43,19 +43,9 @@ export class PermissionController {
       };
     }
   }
-  @Delete(':id')
-    async deletePer(
-      @Param('id', new ValidationPipe({ transform: true })) id: idPermissionDto,
-    ) {
-      try {
-        return await this.perService.deletePermission(String(id));
-      } catch (error) {
-        return {
-          status: 1,
-          message: error,
-        };
-      }
-    }
+
+
+  
   @Get('')
   async fillAllPer() {
     try {

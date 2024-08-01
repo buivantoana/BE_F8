@@ -29,29 +29,8 @@ export class OrderService {
       console.log(error);
     }
   }
-  async updateOrder(id: string) {
-    try {
-      console.log(id);
-      let data = await this.orderModel.findOneAndUpdate(
-        { _id: id },
-        { $set: { status: true } },
-        { returnOriginal: false },
-      );
-      if (!data) {
-        return {
-          status: 1,
-          message: 'failed',
-        };
-      }
-      return {
-        status: 0,
-        message: 'suceess',
-        data,
-      };
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  //update
+  
   async deleteOrder(id: string) {
     try {
       let data = await this.orderModel.findByIdAndDelete(id);
@@ -112,22 +91,6 @@ export class OrderService {
       console.log(error);
     }
   }
-  async findUserOrderAndCourese(courses_id: string,user_id:string) {
-    try {
-      let data = await this.orderModel.find({courses_id:[courses_id],user_id:[user_id]});
-      if (!data) {
-        return {
-          status: 1,
-          message: 'failed',
-        };
-      }
-      return {
-        status: 0,
-        message: 'suceess',
-        data,
-      };
-    } catch (error) {
-      console.log(error);
-    }
-  }
+
+  
 }
