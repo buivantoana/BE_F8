@@ -18,7 +18,7 @@ export class JwtAuthGuard implements CanActivate {
     if (!roles) {
       return true;
     }
-    const request = context.switchToHttp().getRequest();
+    
     const response = context.switchToHttp().getResponse();
     const token = request.headers.authorization?.split(' ')[1];
     if (!token) {
