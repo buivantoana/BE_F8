@@ -95,18 +95,6 @@ import {
         };
       }
     }
-    @Get(':id')
-    async findOneLesson(
-      @Param('id', new ValidationPipe({ transform: true })) id: idLessonDto,
-    ) {
-      try {
-        return await this.lessonService.findOneLesson(String(id));
-      } catch (error) {
-        return {
-          status: 1,
-          message: error,
-        };
-      }
-    }
+
   }
   
