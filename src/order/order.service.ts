@@ -29,29 +29,7 @@ export class OrderService {
       console.log(error);
     }
   }
-  async updateOrder(id: string) {
-    try {
-      console.log(id);
-      let data = await this.orderModel.findOneAndUpdate(
-        { _id: id },
-        { $set: { status: true } },
-        { returnOriginal: false },
-      );
-      if (!data) {
-        return {
-          status: 1,
-          message: 'failed',
-        };
-      }
-      return {
-        status: 0,
-        message: 'suceess',
-        data,
-      };
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  //update
   
   async deleteOrder(id: string) {
     try {
