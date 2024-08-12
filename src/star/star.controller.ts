@@ -75,6 +75,16 @@ import {
         };
       }
     }
-    
+    @Get('')
+  async findAllStar() {
+    try {
+      return await this.StarService.findAllStar();
+    } catch (error) {
+      return {
+        status: 1,
+        message: error,
+      };
+    }
+  }
   }
   
