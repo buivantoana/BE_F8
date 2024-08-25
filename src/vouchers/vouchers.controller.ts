@@ -24,7 +24,8 @@ import { VouchersDto, idVouchersDto } from './dto/vouchers.dto';
 export class VouchersController {
   constructor(private VouchersService: VouchersService) {}
   @Post('')
- async createVouchers(
+ 
+  async createVouchers(
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
     vouchers: VouchersDto,
   ) {
@@ -36,7 +37,6 @@ export class VouchersController {
         message: error,
       };
     }
-  
   }
   @Put(':id')
   async updateVouchers(
@@ -70,7 +70,16 @@ export class VouchersController {
     }
   }
   @Get('')
-  
+  async findAllVouchers() {
+    try {
+      return await this.VouchersService.findAllVouchers();
+    } catch (error) {
+      return {
+        status: 1,
+        message: error,
+      };
+    }
+  }
  
   @Get(':id')
   async findOneVouchers(

@@ -15,6 +15,8 @@ import { Response, Request } from 'express';
 import { TransactionsService } from './transactions.service';
 import { TransactionsDto, idTransactionsDto } from './dto/transactions.dto';
 
+
+
 @Controller('transaction')
 export class TransactionsController {
   constructor(private transactionsService: TransactionsService) {}
@@ -42,7 +44,7 @@ export class TransactionsController {
       return await this.transactionsService.updateTransactions(
         String(id),
         transaction.status,
-        transaction.type,
+        transaction.type
       );
     } catch (error) {
       return {
@@ -60,7 +62,7 @@ export class TransactionsController {
     try {
       return await this.transactionsService.updateTransactionsWithdrawFaild(
         String(id),
-        transaction,
+        transaction
       );
     } catch (error) {
       return {
@@ -121,8 +123,7 @@ export class TransactionsController {
   }
   @Get('statistical/:user_id')
   async findStatisticalTransaction(
-    @Param('user_id', new ValidationPipe({ transform: true }))
-    user_id: idTransactionsDto,
+    @Param('user_id', new ValidationPipe({ transform: true })) user_id: idTransactionsDto,
   ) {
     try {
       return await this.transactionsService.findStatisticalTransaction(user_id);
@@ -138,9 +139,8 @@ export class TransactionsController {
     @Param('date', new ValidationPipe({ transform: true })) date: any,
   ) {
     try {
-      return await this.transactionsService.findStatisticalTransactionAdmin(
-        date,
-      );
+      
+      return await this.transactionsService.findStatisticalTransactionAdmin(date);
     } catch (error) {
       return {
         status: 1,

@@ -15,7 +15,6 @@ import { Response, Request } from 'express';
 import { WalletService } from './wallet.service';
 import { WalletsDto, idWalletsDto } from './dto/wallet.dto';
 
-
 @Controller('wallet')
 export class WalletController {
   constructor(private walletService: WalletService) {}
@@ -40,10 +39,36 @@ export class WalletController {
     wallet: WalletsDto,
   ) {
     try {
-      return await this.walletService.updateWallet(
-        String(id),
-        wallet,
-      );
+      return await this.walletService.updateWallet(String(id), wallet);
+    } catch (error) {
+      return {
+        status: 1,
+        message: error,
+      };
+    }
+  }
+  @Put('create_pin_code/:id')
+  async createWalletPinCode(
+    @Param('id', new ValidationPipe({ transform: true })) id: idWalletsDto,
+    @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+    pin: any,
+  ) {
+    try {
+      return await this.walletService.updateWalletPinCode(String(id), pin);
+    } catch (error) {
+      return {
+        status: 1,
+        message: error,
+      };
+    }
+  }
+  @Post('send_pin_code')
+  async sendPinCode(
+    @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+    pin: any,
+  ) {
+    try {
+      return await this.walletService.sendPinCode(pin);
     } catch (error) {
       return {
         status: 1,
@@ -84,7 +109,8 @@ export class WalletController {
   }
   @Get('statistical/:user_id')
   async findStatisticalWallet(
-    @Param('user_id', new ValidationPipe({ transform: true })) user_id: idWalletsDto,
+    @Param('user_id', new ValidationPipe({ transform: true }))
+    user_id: idWalletsDto,
   ) {
     try {
       return await this.walletService.findStatisticalWallet(user_id);

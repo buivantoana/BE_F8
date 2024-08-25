@@ -164,6 +164,7 @@ export class UserController {
   }
   @Put('change_password/user')
   async changePassword(
+   
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
     user: any,
   ) {

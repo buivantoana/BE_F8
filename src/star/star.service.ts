@@ -48,7 +48,6 @@ export class StarService {
       console.log(error);
     }
   }
-  
   async deleteStar(id: string) {
     try {
       let data = await this.starModel.findByIdAndDelete(id);
@@ -67,6 +66,7 @@ export class StarService {
       console.log(error);
     }
   }
+
   async findAllStar() {
     try {
       let data = await this.starModel

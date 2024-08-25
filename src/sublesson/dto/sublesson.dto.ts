@@ -10,8 +10,6 @@ export class SubLessonDto {
   readonly duration: number;
   @IsString()
   readonly type: string;
-  @IsString()
-  readonly source: string;
   @IsArray()
   readonly lesson: [string];
 }

@@ -24,6 +24,7 @@ export class VietqrService {
       res.status(500).send(`Error generating QR code: ${error.message}`);
     }
   }
+
   async getBank(res: any) {
     try {
       const banks = await vietQR.getBanks();
@@ -32,5 +33,4 @@ export class VietqrService {
       res.status(500).send('Error fetching banks');
     }
   }
-
 }

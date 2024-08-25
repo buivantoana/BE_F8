@@ -27,7 +27,7 @@ import { Wallet, WalletModel } from 'src/wallet/schema/wallet.schema';
   controllers: [UserController],
   providers: [UserService],
 })
-export class UserModule implements NestModule {
+export class UserModule implements NestModule{
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(UserMiddleware).forRoutes('auth/authentication');
   }

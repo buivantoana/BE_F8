@@ -9,6 +9,7 @@ export class SignupDto {
 }
 export class SigninDto {
   @IsString()
+ 
   @IsEmail()
   readonly email: string;
   @IsString()

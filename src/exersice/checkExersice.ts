@@ -69,8 +69,8 @@ export const checkExercise = async(type, exercise,res) => {
             await  checkAnimalConstructor(exercise,res); 
             break;
         case 'checkStudentConstructor':
-                await  checkStudentConstructor(exercise,res); 
-                break;
+            await  checkStudentConstructor(exercise,res); 
+            break;
        
         default:
             break;

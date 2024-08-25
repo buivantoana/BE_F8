@@ -118,6 +118,7 @@ export class UserVouchersService {
     }
   }
 
+  
   async deleteUserVouchers(id: string) {
     try {
       let data = await this.UserVouchersModel.findByIdAndDelete(id);
@@ -181,7 +182,7 @@ export class UserVouchersService {
         return userVoucher.vouchers_id.some((voucher: any) => {
           const startDate = new Date(voucher.start_date);
           const endDate = new Date(voucher.end_date);
-          endDate.setHours(23, 59, 59, 999);
+          endDate.setHours(23, 59, 59, 999)
           return startDate <= now && endDate >= now;
         });
       });

@@ -1,12 +1,7 @@
-import {
-  IsArray,
-  IsBoolean,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-} from 'class-validator';
+import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class UserVouchersDto {
+ 
   @IsBoolean()
   @IsNotEmpty()
   readonly status: boolean;
@@ -14,6 +9,7 @@ export class UserVouchersDto {
   readonly user_id: string[];
   @IsArray()
   readonly vouchers_id: string[];
+  
 }
 
 export class idUserVouchersDto {

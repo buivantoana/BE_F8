@@ -9,6 +9,8 @@ export class Wallet extends Document {
   balance: number;
   @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'User' }] })
   user_id: User[];
+  @Prop()
+  pin_code?: string;
 }
 
 export const WalletModel = SchemaFactory.createForClass(Wallet);

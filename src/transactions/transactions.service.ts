@@ -229,12 +229,12 @@ export class TransactionsService {
       console.log(error);
     }
   }
-  async findStatisticalTransactionAdmin(date: any) {
+  async findStatisticalTransactionAdmin(date:any) {
     try {
-      date = Number(date);
+      date = Number(date)
       const today: any = new Date();
       const sevenDaysAgo = new Date(today);
-      sevenDaysAgo.setDate(today.getDate() - (date - 1));
+      sevenDaysAgo.setDate(today.getDate() - (date-1));
       sevenDaysAgo.setHours(0, 0, 0, 0);
 
       let dataRechanrge = await this.transactionsModel.find({
@@ -267,7 +267,7 @@ export class TransactionsService {
         );
 
         if (daysDifference < date) {
-          const index = date - 1 - daysDifference;
+          const index = (date-1) - daysDifference;
           rechanrgeTotals[index] += parseFloat(transaction.amount);
         }
       });
@@ -281,7 +281,7 @@ export class TransactionsService {
         );
 
         if (daysDifference < date) {
-          const index = date - 1 - daysDifference;
+          const index = (date-1) - daysDifference;
           withdrawTotals[index] += parseFloat(transaction.amount);
         }
       });

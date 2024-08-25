@@ -22,7 +22,13 @@ export const ExercisePythonArray = (exercise, res) => {
   exec(`python ${tmpFileName}`, (runError, runStdout, runStderr) => {
     fs.unlinkSync(tmpFileName);
 
-    
+    if (runError || runStderr) {
+      console.error('Run error or stderr:', runStderr || runError.message);
+      return res.status(200).json({
+        status: 0,
+        results: [{ status: false, message: runStderr || runError.message }],
+      });
+    }
     try {
       const output = runStdout.trim();
       const lines = output.split('\n');
@@ -32,7 +38,10 @@ export const ExercisePythonArray = (exercise, res) => {
           .map((part) => part.split(': ')[1]);
         return { name, like: parseInt(like, 10) };
       });
-    
+      const expected = [
+        { name: 'Basketball', like: 6 },
+        { name: 'Football', like: 10 },
+      ];
       const isCorrect = JSON.stringify(result) === JSON.stringify(expected);
       return res.status(200).json({
         status: 0,

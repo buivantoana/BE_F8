@@ -19,10 +19,13 @@ import { Roles } from 'src/guards/role.decorator';
 import { UserVouchersService } from './user_vouchers.service';
 import { UserVouchersDto, idUserVouchersDto } from './dto/user_vouchers.dto';
 
+
 @Controller('user_vouchers')
+
 export class UserUserVouchersController {
   constructor(private UserVouchersService: UserVouchersService) {}
   @Post('')
+ 
   async createUserVouchers(
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
     Uservouchers: any,
@@ -78,7 +81,7 @@ export class UserUserVouchersController {
       };
     }
   }
-
+ 
   @Get('user/:id')
   async findUserVouchers(
     @Param('id', new ValidationPipe({ transform: true })) id: idUserVouchersDto,
@@ -92,7 +95,7 @@ export class UserUserVouchersController {
       };
     }
   }
-
+ 
   @Get(':id')
   async getUsersWithoutVoucher(
     @Param('id', new ValidationPipe({ transform: true })) id: idUserVouchersDto,

@@ -14,8 +14,8 @@ export class SubLesson extends Document {
   duration: string;
   @Prop({ required: true })
   type: string;
-  @Prop({ required: true })
-  source: string;
+  @Prop()
+  source?: string;
   @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Lesson' }] })
   lesson: Lesson[];
   @Prop()

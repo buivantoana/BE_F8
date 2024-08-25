@@ -26,8 +26,8 @@ export const checkExerciseHtml = async(type, exercise,res) => {
             await ExerciseCssSelectors(exercise,res); 
             break;
         case 'ExerciseCssPriority':
-                await ExerciseCssPriority(exercise,res); 
-                break;
+            await ExerciseCssPriority(exercise,res); 
+            break;
        
        
         default:

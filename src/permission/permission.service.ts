@@ -27,7 +27,7 @@ export class PermissionService {
       console.log(error);
     }
   }
-async updatePermission(id: string, per: IPermission) {
+  async updatePermission(id: string, per: IPermission) {
     try {
       let data = await this.perModel.findByIdAndUpdate(id, per, {
         new: true,
@@ -46,7 +46,7 @@ async updatePermission(id: string, per: IPermission) {
     } catch (error) {
       console.log(error);
     }
-  }  
+  }
   async deletePermission(id: string) {
     try {
       let data = await this.perModel.findByIdAndDelete(id);
@@ -65,7 +65,7 @@ async updatePermission(id: string, per: IPermission) {
       console.log(error);
     }
   }
-    async fillAllPermission() {
+  async fillAllPermission() {
     try {
       let data = await this.perModel.find();
 
@@ -84,9 +84,7 @@ async updatePermission(id: string, per: IPermission) {
       console.log(error);
     }
   }
-
-
-    async fillOnePermission(id: string) {
+  async fillOnePermission(id: string) {
     try {
       let data = await this.perModel.findById(id);
       if (!data) {

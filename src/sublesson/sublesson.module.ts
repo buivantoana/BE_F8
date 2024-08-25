@@ -4,10 +4,7 @@ import { SubLesson, SubLessonModel } from './schema/sublesson.schema';
 import { SubLessonController } from './sublesson.controller';
 import { SubLessonService } from './sublesson.service';
 import { Lesson, LessonModel } from 'src/lesson/schema/lesson.chema';
-import {
-  RolePermission,
-  RolePermissionModel,
-} from 'src/role_permission/schema/role_permission.schema';
+import { RolePermission, RolePermissionModel } from 'src/role_permission/schema/role_permission.schema';
 
 @Module({
   imports: [
@@ -15,7 +12,7 @@ import {
       { name: SubLesson.name, schema: SubLessonModel },
     ]),
     MongooseModule.forFeature([
-      { name: RolePermission.name, schema: RolePermissionModel },
+      { name: RolePermission.name, schema: RolePermissionModel},
     ]),
     MongooseModule.forFeature([{ name: Lesson.name, schema: LessonModel }]),
   ],

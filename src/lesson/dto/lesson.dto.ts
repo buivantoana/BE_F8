@@ -19,3 +19,6 @@ export class LessonDto {
   @IsArray()
   readonly courses_id: [string];
 }
+export class idLessonDto {
+  readonly id: string;
+}
