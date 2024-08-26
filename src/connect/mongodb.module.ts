@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 @Module({
   imports: [
     MongooseModule.forRoot(
-      'mongodb+srv://root:123@cluster0.pnvccqv.mongodb.net/?retryWrites=true&w=majority',
+      'mongodb://localhost:27017/datn',
     ),
   ],
 })

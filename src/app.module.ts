@@ -27,7 +27,7 @@ import { StarModule } from './star/star.module';
 import { VouchersModule } from './vouchers/vouchers.module';
 import { UserVouchersModule } from './user_vouchers/user_vouchers.module';
 import { VietQrModule } from './vietqr/vietqr.module';
-import { TwilioModule } from './otp/otp.module';
+
 
 @Module({
   imports: [
@@ -56,7 +56,6 @@ import { TwilioModule } from './otp/otp.module';
     VouchersModule,
     UserVouchersModule,
     VietQrModule,
-    TwilioModule,
   ],
 })
 export class AppModule {}

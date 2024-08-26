@@ -4,7 +4,6 @@ import { Model } from 'mongoose';
 import { Order } from './schema/order.schema';
 import { IOrder } from './interface/order.interface';
 
-
 @Injectable()
 export class OrderService {
   constructor(
@@ -72,12 +71,11 @@ export class OrderService {
   }
   async findAllOrder() {
     try {
-      let data = await this.orderModel.find({status:true}).populate([
-        'courses_id'
-        
-      ])
-      .lean()
-      .exec();;
+      let data = await this.orderModel
+        .find({ status: true })
+        .populate(['courses_id', 'user_id'])
+        .lean()
+        .exec();
 
       if (!data) {
         return {
@@ -112,9 +110,12 @@ export class OrderService {
       console.log(error);
     }
   }
-  async findUserOrderAndCourese(courses_id: string,user_id:string) {
+  async findUserOrderAndCourese(courses_id: string, user_id: string) {
     try {
-      let data = await this.orderModel.find({courses_id:[courses_id],user_id:[user_id]});
+      let data = await this.orderModel.find({
+        courses_id: [courses_id],
+        user_id: [user_id],
+      });
       if (!data) {
         return {
           status: 1,
